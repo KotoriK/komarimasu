@@ -1,0 +1,125 @@
+<div id="root">
+  <div id="upper">
+    <button id="screen">
+      <div>
+        <div id="light"></div>
+        <div id="text">こまります</div>
+      </div>
+    </button>
+    <div id="descr">
+      <p>お困りの方は<br />このボタンを<br />押してください</p>
+    </div>
+  </div>
+</div>
+<script>
+  import { atom } from "nanostores";
+
+  const active$ = atom(false);
+  const screen = document.querySelector("#screen")!;
+  active$.listen((active) => {
+    screen.classList.toggle("active", active);
+  });
+  screen.addEventListener("click", () => {
+    active$.set(true);
+    const utterance = new SpeechSynthesisUtterance("こまります");
+    utterance.lang = "ja-JP";
+    utterance.rate = 1.6;
+    utterance.pitch = 1.2;
+    speechSynthesis.speak(utterance);
+    utterance.onend = () => active$.set(false);
+  });
+</script>
+<style lang="scss">
+  #root {
+    --yellow: #f9cb00;
+    background-color: var(--yellow);
+    border-radius: 12px;
+    width: 215px;
+    height: 418px;
+    display: flex;
+
+    user-select: none;
+  }
+  #upper {
+    --padding: 15px;
+    background-color: var(--yellow);
+    border-radius: 12px;
+    width: calc(100% - var(--padding) * 2);
+    height: calc(100% - var(--padding) * 2);
+    box-shadow: #7777 calc(-1 * var(--padding)) var(--padding) 4px;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  @mixin half-height-fill {
+    height: 50%;
+  }
+  #screen {
+    @include half-height-fill;
+    overflow: hidden;
+    display: flex;
+    background-color: #862826;
+    padding: 4px;
+    border: 0;
+    &:not(.active) div #light {
+      opacity: 0;
+      ::before {
+        opacity: 1;
+      }
+    }
+    div {
+      flex: 1 0 0;
+      height: 100%;
+      position: relative;
+      background-color: #27170d;
+
+      #light {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background-color: #f7f0d3;
+        border-radius: 50%;
+        filter: blur(50px);
+        transform: translate(50%, 50%);
+        opacity: 1;
+        transition: opacity 0.1s;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          background-color: #fff;
+          border-radius: 50%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+      #text {
+        background-color: #86282622;
+        flex: 1 0 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        color: #fff;
+        mix-blend-mode: soft-light;
+      }
+    }
+  }
+  #descr {
+    @include half-height-fill;
+    margin-block: 16px;
+    p {
+      color: #27170d;
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 2;
+      letter-spacing: -1px;
+      text-align: center;
+      white-space: pre;
+      margin-block: unset;
+    }
+  }
+</style>

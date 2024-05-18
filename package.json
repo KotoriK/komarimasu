@@ -1,0 +1,29 @@
+{
+  "name": "komarimasu",
+  "version": "0.0.1",
+  "description": "お困りの方はこのボタンを押してください",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check & astro build"
+  },
+  "keywords": [
+    "astro",
+    "html",
+    "komarimasu",
+    "meme"
+  ],
+  "author": {
+    "name": "KotoriK",
+    "url": "https://github.com/KotoriK"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "astro": "^4.8.6",
+    "nanostores": "^0.10.3"
+  },
+  "devDependencies": {
+    "sass": "^1.77.2",
+    "typescript": "^5.4.5"
+  }
+}
