@@ -1,29 +1,45 @@
+---
+const description = "お困りの方はこのボタンを押してください";
+const buttonText = "こまります";
+const cssRequestText = Array.from(
+  new Set([...description, ...buttonText]).values()
+).join("");
+---
+
 <!doctype html>
 <html lang="ja-jp">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href={"https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap&text=" +
+        cssRequestText}
+      rel="stylesheet"
+    />
     <title>困ります</title>
   </head>
   <body>
     <slot />
   </body>
 </html>
-<style>
+<style is:global>
   :root {
-    --bg: #1e293b; /* tailwind slate 800 */
-    --text-normal: #e2e8f0; /* tailwind cool gray 100 */
+    --bg: #131924; 
   }
   @media (prefers-color-scheme: light) {
     :root {
       --bg: #f7fafc;
-      --text-normal: #1a202c;
     }
   }
   html,
-  body {
+  body,
+  button {
     background-color: var(--bg);
     color: var(--text-normal);
     overflow: hidden;
+    font-family: "M PLUS Rounded 1c", sans-serif;
   }
 </style>
