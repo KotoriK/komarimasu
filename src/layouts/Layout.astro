@@ -27,7 +27,7 @@ const cssRequestText = Array.from(
 </html>
 <style is:global>
   :root {
-    --bg: #131924; 
+    --bg: #131924;
   }
   @media (prefers-color-scheme: light) {
     :root {
@@ -41,5 +41,14 @@ const cssRequestText = Array.from(
     color: var(--text-normal);
     overflow: hidden;
     font-family: "M PLUS Rounded 1c", sans-serif;
+  }
+</style>
+<style is:global>
+  @font-face {
+    font-family: "M PLUS Rounded 1c";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(./font.woff2) format("woff2");
   }
 </style>
