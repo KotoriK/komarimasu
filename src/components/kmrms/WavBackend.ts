@@ -2,7 +2,7 @@ import KMRMSPlayer from "./interface";
 import wavUrl from "./wav/kmrms-1.wav?url"
 import aacUrl from "./wav/kmrms-1.aac?url"
 export default class WavBackend extends EventTarget implements KMRMSPlayer {
-    #ctx = new AudioContext();
+    #ctx = new AudioContext({ latencyHint: 'interactive' });
     #inputFront: AudioNode
     #e: HTMLAudioElement
     ready: Promise<void>;
