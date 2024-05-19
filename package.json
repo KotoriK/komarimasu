@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "お困りの方はこのボタンを押してください",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check & astro build"
