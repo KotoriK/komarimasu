@@ -33,6 +33,7 @@ export default class WavBackend extends EventTarget implements KMRMSPlayer {
         sourceNode.connect(this.#inputFront)
     }
     play() {
+        this.#ctx.resume()
         this.#e.play()
     }
     declare addEventListner: (type: "end", listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) => void
