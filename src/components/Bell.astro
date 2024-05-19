@@ -2,7 +2,9 @@
   <div id="upper">
     <button id="screen">
       <div>
-        <div id="light"></div>
+        <div>
+          <div id="light"></div>
+        </div>
         <div id="text">こまります</div>
       </div>
     </button>
@@ -29,16 +31,15 @@
   });
 </script>
 <style lang="scss" is:global>
-  @use "sass:color";
-  @mixin half-height-fill {
-    height: 50%;
-  }
+  /*   @use "sass:color";
+ */
   #root {
+    --border-radius: 12px;
     --yellow: #f9cb00;
     background-color: var(--yellow);
-    border-radius: 12px;
-    width: 215px;
-    height: 418px;
+    border-radius: var(--border-radius);
+    width: 218px;
+    height: 410px;
     display: flex;
     position: relative;
 
@@ -46,58 +47,80 @@
     #upper {
       --padding: 15px;
       background-color: var(--yellow);
-      border-radius: 12px;
+      border-radius: var(--border-radius);
       width: calc(100% - var(--padding) * 2);
       height: calc(100% - var(--padding) * 2);
-      box-shadow: #7777 calc(-1 * var(--padding)) var(--padding) 4px;
       margin: 15px;
       display: flex;
       flex-direction: column;
+      outline: #7777 solid 2px;
     }
 
     $bg-red: #862826;
-    $bg-red-active: adjust-color($bg-red, $lightness: 10%);
+    /*     $bg-red-active: adjust-color($bg-red, $lightness: 10%);
+ */
     #screen {
-      @include half-height-fill;
+      height: 60%;
+      border-radius: var(--border-radius);
       overflow: hidden;
       display: flex;
       background-color: $bg-red;
       padding: 4px;
       border: 0;
-      transition: background-color 0.3s ease;
+      outline: 0;
+      transition: filter 0.1s ease;
       &.active {
-        background-color: $bg-red-active;
+        filter: brightness(1.2);
       }
-      &:not(.active) div #light {
-        filter: blur(26px) brightness(0);
+      &:not(.active) #light {
+        filter: blur(8px) brightness(0);
       }
       div {
+        border-radius: var(--border-radius);
         flex: 1 0 0;
         height: 100%;
         position: relative;
         background-color: #27170d;
-
-        #light {
+transform: translateZ(1px);
+        div {
           position: absolute;
-          width: 50%;
-          height: 50%;
-          background-color: #f00;
-          border-radius: 50%;
-          filter: blur(26px)
-            /**a weird value to workaround Firefox render issue */ brightness(2);
-          transform: translate(50%, 50%);
-          transition: filter 0.3s ease;
-          mix-blend-mode: color-dodge;
-          &:after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #f00;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          #light {
+            --light: #f00;
+            @supports (color: color(display-p3 1 0 0)) {
+              --light: color(display-p3 1 0 0);
+            }
+            dynamic-range-limit: constrained-high;
+            width: 25%;
+            height: 25%;
+            background-color: var(--light);
             border-radius: 50%;
-            filter: blur(60px);
-            transform: translate(-50%, -50%);
-            top: 50%;
+            filter: blur(8px) brightness(100); // https://kidi.ng/wanna-see-a-whiter-white/
+            transition: filter 0.1s ease;
+            mix-blend-mode: color-dodge;
+            &:before {
+              position: absolute;
+              content: "";
+              width: 100%;
+              height: 100%;
+              background-color: var(--light);
+              border-radius: 50%;
+              filter: blur(26px) brightness(100);
+              mix-blend-mode: exclusion; /* workaround Firefox render issue */
+            }
+            &:after {
+              position: absolute;
+              content: "";
+              width: 100%;
+              height: 100%;
+              background-color: var(--light);
+              border-radius: 50%;
+              filter: blur(40px) brightness(100);
+            }
           }
         }
         #text {
@@ -110,11 +133,14 @@
           font-size: 28px;
           color: #fff;
           mix-blend-mode: soft-light;
+          @supports (color: color(display-p3 1 1 1)) {
+            color: color(display-p3 1 1 1);
+          }
         }
       }
     }
     #descr {
-      @include half-height-fill;
+      height: auto;
       margin-block: 16px;
       p {
         color: #27170d;
