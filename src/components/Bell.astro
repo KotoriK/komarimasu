@@ -1,13 +1,13 @@
 <div id="root">
   <div id="upper">
-    <button id="screen">
+    <div id="screen">
       <div>
         <div>
           <div id="light"></div>
         </div>
         <div id="text">こまります</div>
       </div>
-    </button>
+    </div>
     <div id="descr">
       <p>お困りの方は<br />このボタンを<br /><span>押してください</span></p>
     </div>
@@ -42,7 +42,7 @@
     height: 410px;
     display: flex;
     position: relative;
-
+    -webkit-user-select: none;
     user-select: none;
     #upper {
       --padding: 15px;
@@ -70,7 +70,7 @@
       outline: 0;
       transition: filter 0.1s ease;
       &.active {
-        filter: brightness(1.2);
+        filter: brightness(1.4);
       }
       &:not(.active) #light {
         filter: blur(8px) brightness(0);
@@ -81,7 +81,7 @@
         height: 100%;
         position: relative;
         background-color: #27170d;
-transform: translateZ(1px);
+        transform: translateZ(1px);
         div {
           position: absolute;
           width: 100%;
@@ -110,7 +110,6 @@ transform: translateZ(1px);
               background-color: var(--light);
               border-radius: 50%;
               filter: blur(26px) brightness(100);
-              mix-blend-mode: exclusion; /* workaround Firefox render issue */
             }
             &:after {
               position: absolute;
@@ -131,11 +130,8 @@ transform: translateZ(1px);
           justify-content: center;
           align-items: center;
           font-size: 28px;
-          color: #fff;
+          color: #aaad;
           mix-blend-mode: soft-light;
-          @supports (color: color(display-p3 1 1 1)) {
-            color: color(display-p3 1 1 1);
-          }
         }
       }
     }
@@ -153,7 +149,7 @@ transform: translateZ(1px);
         margin-block: unset;
         span {
           /* last line */
-          letter-spacing: -2px;
+          letter-spacing: -3px;
         }
       }
     }
