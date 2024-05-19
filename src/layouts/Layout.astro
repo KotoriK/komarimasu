@@ -12,13 +12,6 @@ const cssRequestText = Array.from(
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href={"https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap&text=" +
-        cssRequestText}
-      rel="stylesheet"
-    />
     <title>困ります</title>
   </head>
   <body>
@@ -26,6 +19,13 @@ const cssRequestText = Array.from(
   </body>
 </html>
 <style is:global>
+  @font-face {
+    font-family: "M PLUS Rounded 1c";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(./font.woff2) format("woff2");
+  }
   :root {
     --bg: #131924;
   }
@@ -38,17 +38,7 @@ const cssRequestText = Array.from(
   body,
   button {
     background-color: var(--bg);
-    color: var(--text-normal);
     overflow: hidden;
     font-family: "M PLUS Rounded 1c", sans-serif;
-  }
-</style>
-<style is:global>
-  @font-face {
-    font-family: "M PLUS Rounded 1c";
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(./font.woff2) format("woff2");
   }
 </style>
