@@ -10,7 +10,10 @@ const cssRequestText = Array.from(
 <html lang="ja-jp">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width,height=device-height, initial-scale=1, user-scalable=no, maximum-scale=1"
+    />
     <meta name="description" content={description} />
     <title>困ります</title>
   </head>
@@ -40,5 +43,10 @@ const cssRequestText = Array.from(
     background-color: var(--bg);
     overflow: hidden;
     font-family: "M PLUS Rounded 1c", sans-serif;
+  }
+  * {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: double-tap-zoom pan-y;
   }
 </style>

@@ -1,44 +1,45 @@
 import KMRMSPlayer from "./interface";
-import wavUrl from "./wav/kmrms-1.wav?url"
-import aacUrl from "./wav/kmrms-1.aac?url"
-export default class WavBackend extends EventTarget implements KMRMSPlayer {
+import url from "../../sound/kmrms-1.mp3?url"
+export default class WavBackend implements KMRMSPlayer {
     #ctx = new AudioContext({ latencyHint: 'interactive' });
     #inputFront: AudioNode
     #e: HTMLAudioElement
     ready: Promise<void>;
+    #buf: AudioBuffer
     constructor() {
-        super();
         this.ready = this.#init();
     }
     async #init() {
-        const audioElement = document.createElement("audio")
-        audioElement.innerHTML = `<source src="${aacUrl}" type="audio/aac"/><source src="${wavUrl}" type="audio/wav"/>`
-        audioElement.style.display = "none"
-        audioElement.preload = "auto"
-        audioElement.onended = () => {
-            this.dispatchEvent(new Event("end"));
-        }
-        this.#e = document.body.appendChild(audioElement)
-
-        const sourceNode = this.#ctx.createMediaElementSource(audioElement)
+        const response = await fetch(url)
+        const arrayBuffer = await response.arrayBuffer()
+        this.#buf = await this.#ctx.decodeAudioData(arrayBuffer)
 
         // create nodes
         const highpassFilter = this.#ctx.createBiquadFilter()
+
+
         highpassFilter.type = "highpass"
         highpassFilter.frequency.value = 1000
 
         highpassFilter.connect(this.#ctx.destination)
         this.#inputFront = highpassFilter
-
-        sourceNode.connect(this.#inputFront)
     }
+    #c: AudioBufferSourceNode
     play() {
-        this.#ctx.resume()
-        this.#e.play()
+         this.#ctx.resume()
+        if (this.#c) {
+            return
+        }
+        const sourceNode = this.#ctx.createBufferSource()
+        sourceNode.buffer = this.#buf
+        sourceNode.connect(this.#inputFront)
+        sourceNode.start()
+        this.#c = sourceNode
+        sourceNode.onended = () => {
+            this.#c = null
+        }
     }
-    declare addEventListner: (type: "end", listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) => void
-    declare removeEventListner: (type: "end", listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions) => void
-    declare dispatchEvent: (event: Event) => boolean
+
     [Symbol.dispose]() {
         this.#e.remove()
         this.#ctx.close()
