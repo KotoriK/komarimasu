@@ -1,9 +1,6 @@
 ---
 const description = "お困りの方はこのボタンを押してください";
-const buttonText = "こまります";
-const cssRequestText = Array.from(
-  new Set([...description, ...buttonText]).values()
-).join("");
+import { pwaInfo } from "virtual:pwa-info";
 ---
 
 <!doctype html>
@@ -16,10 +13,18 @@ const cssRequestText = Array.from(
     />
     <meta name="description" content={description} />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="困ります">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="困ります" />
 
     <title>困ります</title>
+    <script>
+      import { registerSW } from "virtual:pwa-register";
+
+      registerSW({
+        immediate: true,
+      });
+    </script>
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
   </head>
   <body>
     <slot />
@@ -47,6 +52,7 @@ const cssRequestText = Array.from(
     overflow: hidden;
     font-family: "M PLUS Rounded 1c", sans-serif;
     margin: 0;
+    height: 100%; /**fix layout shift */
   }
   button {
     font-family: "M PLUS Rounded 1c", sans-serif;
@@ -56,5 +62,4 @@ const cssRequestText = Array.from(
     -webkit-user-select: none !important;
     touch-action: none;
   }
-
 </style>
