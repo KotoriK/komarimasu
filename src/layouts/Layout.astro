@@ -12,9 +12,13 @@ const cssRequestText = Array.from(
     <meta charset="utf-8" />
     <meta
       name="viewport"
-      content="width=device-width,height=device-height, initial-scale=1, user-scalable=no, maximum-scale=1"
+      content="width=device-width, initial-scale=1.0, user-scalable=no ,maximum-scale=1.0 ,viewport-fit=cover"
     />
     <meta name="description" content={description} />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="困ります">
+
     <title>困ります</title>
   </head>
   <body>
@@ -47,6 +51,6 @@ const cssRequestText = Array.from(
   * {
     user-select: none !important;
     -webkit-user-select: none !important;
-    touch-action: double-tap-zoom pan-y;
+    touch-action: none;
   }
 </style>

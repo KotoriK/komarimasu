@@ -8,11 +8,14 @@ import Bell from "../components/Bell.astro";
     <Bell />
   </div>
 </Layout>
-<style>
+<style lang="scss">
   div {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    @supports (height: -webkit-fill-available) {
+      height: -webkit-fill-available;
+    }
   }
 </style>

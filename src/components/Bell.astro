@@ -1,6 +1,6 @@
 <div id="root">
   <div id="upper">
-    <div id="screen">
+    <div id="screen" role="switch">
       <div>
         <div>
           <div id="light"></div>
@@ -22,7 +22,9 @@
   const screen = document.querySelector("#screen")!;
   const player = new WavBackend();
   const buttonSE = new ButtonSE();
-
+  document
+    .querySelector("#root")
+    .addEventListener("touchend", (e) => e.preventDefault(), { capture: true });
   active$.listen((active) => {
     screen.classList.toggle("active", active);
   });
