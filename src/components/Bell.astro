@@ -127,15 +127,18 @@
           }
         }
         #text {
-          background-color: #fff0;
+          background-color: #910328;
+          @supports (background-color: lch(1 0 0)) {
+            background-color: lch(26.63 58.21 10.6);
+          }
           flex: 1 0 0;
           height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
           font-size: 28px;
-          color: #aaad;
-          mix-blend-mode: soft-light;
+          color: #fffa;
+          mix-blend-mode: overlay;
         }
       }
     }
