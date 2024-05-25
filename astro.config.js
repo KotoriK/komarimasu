@@ -3,28 +3,39 @@ import AstroPWA from '@vite-pwa/astro'
 
 export default defineConfig({
     integrations: [AstroPWA({
+        base: '/',
+        scope: '/',
+        strategies: "generateSW",
         registerType: 'autoUpdate',
-        devOptions: { enabled: true },
-        manifest:{},
+        devOptions: { enabled: true, navigateFallbackAllowlist: [/^\//], },
+        manifest: {
+            name: "困りますボタン",
+            short_name: '困ります',
+            description: 'お困りの方はこのボタンを押してください',
+            icons: [
+                {
+                    src: "/icon.svg",
+                    sizes: "any"
+                }, {
+                    src: "/icon-maskable.svg",
+                    sizes: "any",
+                    purpose: "maskable"
+                }
+            ],
+            theme_color: "#f9cb00",
+            display_override: ["fullscreen", "standalone"],
+            display: "minimal-ui"
+        },
         workbox: {
+            globPatterns: ['**/*.{html|webmanifest|svg}'],
             runtimeCaching: [
-/*                 {
-                    urlPattern: /\/$/,
-                    handler: 'StaleWhileRevalidate',
-                    options: {
-                        cacheName: 'entry',
-                        expiration: {
-                            maxEntries: 1,
-                            maxAgeSeconds: 15 * 24 * 60 * 60 // 15 Days
-                        }
-                    }
-                }, */ {
-                    urlPattern: /\/.*\.(mp3|woff2)/,
+                {
+                    urlPattern: /\/.*\.(mp3|woff2)$/,
                     handler: 'CacheFirst',
                     options: {
-                        cacheName: 'static-assets',
+                        cacheName: 'assets',
                         expiration: {
-                            maxEntries: 4,
+                            maxEntries: 10,
                             maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
                         }
                     }
