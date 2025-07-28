@@ -14,32 +14,30 @@
   </div>
 </div>
 <script>
-  import { atom } from "nanostores";
   import WavBackend from "./kmrms/WavBackend";
   import ButtonSE from "./ButtonSE";
 
-  const active$ = atom(false);
-  const screen = document.querySelector("#screen")!;
   const player = new WavBackend();
   const buttonSE = new ButtonSE();
+  const screen = document.querySelector("#screen")!;
+  const toggleActive = (next: boolean) => {
+    screen.classList.toggle("active", next);
+  };
+
   document
     .querySelector("#root")
     .addEventListener("touchend", (e) => e.preventDefault(), { capture: true });
-  active$.listen((active) => {
-    screen.classList.toggle("active", active);
-  });
+
   screen.addEventListener("pointerdown", () => {
-    active$.set(true);
+    toggleActive(true);
     player.play();
   });
   screen.addEventListener("pointerup", () => {
-    active$.set(false);
+    toggleActive(false);
   });
   buttonSE.on(screen as HTMLElement);
 </script>
 <style lang="scss" is:global>
-  /*   @use "sass:color";
- */
   #root {
     --border-radius: 18px;
     --yellow: #f9cb00;
