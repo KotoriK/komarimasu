@@ -37,7 +37,7 @@ export default class ButtonSE {
         source.connect(this.#front)
         source.start()
     }
-    [Symbol.dispose]() {
+/*     [Symbol.dispose]() {
         this.#ctx.close()
-    }
+    } */
 }

@@ -39,9 +39,8 @@ export default class WavBackend implements KMRMSPlayer {
             this.#c = null
         }
     }
-
-    [Symbol.dispose]() {
+/*     [Symbol.dispose]() {
         this.#e.remove()
         this.#ctx.close()
-    }
+    } */
 }
