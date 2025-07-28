@@ -25,10 +25,10 @@ export default class ButtonSE {
             this.#play(this.#bufPressUp)
         }
         button.addEventListener("pointerdown", handleDown)
-        button.addEventListener("pointerup", handleUp)
+        document.body.addEventListener("pointerup", handleUp)
         return () => {
             button.removeEventListener("pointerdown", handleDown)
-            button.removeEventListener("pointerup", handleUp)
+            document.body.removeEventListener("pointerup", handleUp)
         }
     }
     #play(buf: AudioBuffer) {

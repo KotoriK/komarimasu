@@ -32,7 +32,7 @@
     toggleActive(true);
     player.play();
   });
-  screen.addEventListener("pointerup", () => {
+  document.body.addEventListener("pointerup", () => {
     toggleActive(false);
   });
   buttonSE.on(screen as HTMLElement);
