@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "astro": "^5.12.4"
+    "astro": "^5.12.6"
   },
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.0",
