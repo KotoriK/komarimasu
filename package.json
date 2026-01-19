@@ -20,13 +20,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "astro": "^5.12.6"
+    "@astrojs/check": "^0.9.6",
+    "astro": "^5.16.10"
   },
   "devDependencies": {
-    "@vite-pwa/astro": "^1.1.0",
-    "sass": "^1.89.2",
-    "typescript": "^5.8.3",
-    "workbox-window": "^7.3.0"
+    "@vite-pwa/astro": "^1.2.0",
+    "sass": "^1.97.2",
+    "typescript": "^5.9.3",
+    "workbox-window": "^7.4.0"
   }
 }
